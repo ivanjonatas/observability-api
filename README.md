@@ -7,7 +7,10 @@ A aplicação simula endpoints de uma API e coleta métricas como latência, con
 ---
 
 ## 🎯 Objetivo
-Fornecer um ambiente para aprendizado e prática de técnicas de observabilidade, ajudando desenvolvedores a instrumentar APIs, coletar métricas, configurar tracing e criar dashboards no Grafana.  
+Fornecer um ambiente para aprendizado e prática de técnicas de observabilidade, ajudando desenvolvedores a instrumentar APIs, coletar métricas, configurar tracing e criar dashboards no Grafana. 
+
+- Total de requisicoes
+- latencias das requisicoes
 
 ---
 
