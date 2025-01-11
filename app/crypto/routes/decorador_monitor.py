@@ -12,26 +12,27 @@ class Monitor:
         :param description: Descrição das métricas
         """
         self.request_counter = Counter(
-            f"{request_metric_name}_total", f"Total de {description}"
+            f"{request_metric_name}_total",
+            f"Total de {description}",
+            labelnames=["endpoint"]
         )
         self.latency_histogram = Histogram(
             f"{latency_metric_name}_latency_seconds",
-            f"Latência de {description} (em segundos)"
+            f"Latência de {description} (em segundos)",
+            labelnames=["endpoint"]
         )
 
     def track(self, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            # Incrementa o contador de requisições
-            self.request_counter.inc()
-            start_time = time.time()  # Inicia o cronômetro
+            endpoint_name = func.__name__
+            self.request_counter.labels(endpoint=endpoint_name).inc()
+            start_time = time.time()
             try:
-                # Executa a função decorada
                 return func(*args, **kwargs)
             finally:
-                # Observa a latência
                 elapsed_time = time.time() - start_time
-                self.latency_histogram.observe(elapsed_time)
+                self.latency_histogram.labels(endpoint=endpoint_name).observe(elapsed_time)
         return wrapper
 
 monitor_instance = Monitor("external_api_requests", "external_api", "requisições para API externa")

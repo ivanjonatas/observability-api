@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from prometheus_client import generate_latest
 from fastapi.responses import PlainTextResponse
-from app.crypto.routes.monitor import monitor_instance
+from app.crypto.routes.decorador_monitor import monitor_instance
 
 router = APIRouter()
 
